@@ -58,12 +58,6 @@ async function addNewStoryAndShow(evt) {
   const storyAuthor = $("#story-author").val();
   const storyTitle = $("#story-title").val();
   const storyUrl = $("#story-url").val();
-
-  console.log("story Author:", storyAuthor);
-  console.log("story title:", storyTitle);
-  console.log("story Url:", storyUrl);
-  console.log("current user:", currentUser);
-
   
   await storyList.addStory(currentUser, {
     "author": storyAuthor, 

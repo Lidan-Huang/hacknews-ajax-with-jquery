@@ -82,7 +82,7 @@ class StoryList {
 
     const {story} = response.data;
     const newStory =  new Story(story);
-    this.stories.push(newStory);
+    this.stories.unshift(newStory);
 
     return newStory;
   }
