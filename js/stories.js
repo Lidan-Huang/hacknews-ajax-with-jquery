@@ -53,6 +53,26 @@ function putStoriesOnPage() {
 
 /**Submit a new story and show the new story on the page. */
 
-function addNewStoryAndShow(evt) {
+async function addNewStoryAndShow(evt) {
+  evt.preventDefault();
+  const storyAuthor = $("#story-author").val();
+  const storyTitle = $("#story-title").val();
+  const storyUrl = $("#story-url").val();
+
+  console.log("story Author:", storyAuthor);
+  console.log("story title:", storyTitle);
+  console.log("story Url:", storyUrl);
+  console.log("current user:", currentUser);
+
   
+  await storyList.addStory(currentUser, {
+    "author": storyAuthor, 
+    "title": storyTitle,
+    "url": storyUrl,
+  });
+
+  $newStory.hide();
+  putStoriesOnPage();
 }
+
+$newStory.on("submit", addNewStoryAndShow);

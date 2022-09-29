@@ -41,7 +41,7 @@ function navSubmitClick(evt) {
   console.log("navSubmitClick", evt);
   // hidePageComponents();
   $newStory.show();
-  putStoriesOnPage();
+  // putStoriesOnPage();
 }
 
 $navSubmit.on("click", navSubmitClick);
