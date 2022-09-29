@@ -203,4 +203,18 @@ class User {
       return null;
     }
   }
+
+  async addFavorite(story){
+    const response = await axios({
+      url: `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
+      method: "post",
+      data: { "token": currentUser.loginToken}
+    });
+    const favStories = response.data.user.favorites.map(story => new Story(story));
+    currentUser.favorites = [...favStories];
+  }
+
+  async unFavorite(story){
+    
+  }
 }
