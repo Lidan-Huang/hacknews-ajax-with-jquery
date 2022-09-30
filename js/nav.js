@@ -56,3 +56,11 @@ function navFavorites(evt){
 }
 
 $navFavorites.on("click", navFavorites);
+
+function navMyStories(evt){
+  console.debug("navMyStories", evt);
+  hidePageComponents();
+  showMyStories();
+}
+
+$myStories.on("click", navMyStories)

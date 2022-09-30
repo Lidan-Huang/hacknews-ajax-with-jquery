@@ -8,7 +8,6 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
-
   putStoriesOnPage();
 }
 
@@ -19,12 +18,16 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
+//  ${allMyStoriesList.is(":visible") ? <i class="fa fa-trash"></i> : ""}
 function generateStoryMarkup(story) {
   console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
   const storyId = story.storyId;
-  const isFavorited = currentUser.favorites.find(s => s.storyId === storyId);
+  const isFavorited = currentUser?.favorites.find(s => s.storyId === storyId);
+  // const isVisible = $allMyStoriesList.is(":visible");
+  // <i class="fa fa-trash ${isVisible ? "" : "hidden"}"></i>
+
   return $(`
   <li id="${story.storyId}">
     <i class="far fa-star ${isFavorited ? "fas" : ""}"></i>
@@ -102,3 +105,12 @@ async function favoritesIconClick(evt) {
 }
 
 $("body").on("click", ".fa-star", favoritesIconClick);
+
+function showMyStories(){
+  $allMyStoriesList.empty();
+  $allMyStoriesList.show();
+  for (let story of currentUser.ownStories) {
+    const $story = generateStoryMarkup(story);
+    $allMyStoriesList.append($story);
+  }
+}

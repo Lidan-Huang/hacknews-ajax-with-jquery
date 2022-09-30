@@ -23,6 +23,9 @@ const $allFavoritesStoriesList = $("#all-favorites-stories-list");
 
 const $hackOrSnooze = $("#nav-all");
 
+const $myStories = $("#nav-my-stories");
+const $allMyStoriesList = $("#all-my-stories-list");
+
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
  * calling this, individual components can re-show just what they want.
@@ -34,7 +37,8 @@ function hidePageComponents() {
     $loginForm,
     $signupForm,
     $newStory,
-    $allFavoritesStoriesList
+    $allFavoritesStoriesList,
+    $allMyStoriesList
   ];
   components.forEach(c => c.hide());
 }
@@ -49,7 +53,7 @@ async function start() {
   await getAndShowStoriesOnStart();
 
   // if we got a logged-in user
-  if (currentUser) updateUIOnUserLogin();
+  if (currentUser) updateUIOnUserLogin(); 
 }
 
 // Once the DOM is entirely loaded, begin the app
