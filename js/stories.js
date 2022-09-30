@@ -20,20 +20,22 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  const storyId = story.storyId;
+  const isFavorited = currentUser.favorites.find(s => s.storyId === storyId);
   return $(`
-      <li id="${story.storyId}">
-        <i class="far fa-star"></i>
-        <a href="${story.url}" target="a_blank" class="story-link">
-          ${story.title}
-        </a>
-        <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
-      </li>
-    `);
+  <li id="${story.storyId}">
+    <i class="far fa-star ${isFavorited ? "fas" : ""}"></i>
+    <a href="${story.url}" target="a_blank" class="story-link">
+      ${story.title}
+    </a>
+    <small class="story-hostname">(${hostName})</small>
+    <small class="story-author">by ${story.author}</small>
+    <small class="story-user">posted by ${story.username}</small>
+  </li>
+`);
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
@@ -74,8 +76,8 @@ async function addNewStoryAndShow(evt) {
 $newStory.on("submit", addNewStoryAndShow);
 
 /**iterate through user favorites stories list and append to the DOM */
+
 function showFavorites(){
-  console.log('123', currentUser.favorites);
   $allFavoritesStoriesList.empty();
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story);
@@ -89,7 +91,6 @@ async function favoritesIconClick(evt) {
   //if isFas true, it is a favorite story
   const isFas = $(evt.target).hasClass("fas");
   let storyId = $(evt.target).closest("li").attr("id");
-
   let story = storyList.stories.find(story => story.storyId === storyId);
   
   $(evt.target).toggleClass("fas");
