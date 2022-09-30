@@ -82,3 +82,22 @@ function showFavorites(){
     $allFavoritesStoriesList.append($story);
   }
 }
+
+async function favoritesIconClick(evt) {
+  console.debug("favoritesIconClick", evt);
+
+  //if isFas true, it is a favorite story
+  const isFas = $(evt.target).hasClass("fas");
+  let storyId = $(evt.target).closest("li").attr("id");
+
+  let story = storyList.stories.find(story => story.storyId === storyId);
+  
+  $(evt.target).toggleClass("fas");
+  if (isFas) {
+    await currentUser.unFavorite(story);
+  } else {
+    await currentUser.addFavorite(story);
+  }
+}
+
+$("body").on("click", ".fa-star", favoritesIconClick);
