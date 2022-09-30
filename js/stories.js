@@ -25,6 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <i class="far fa-star"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -66,7 +67,18 @@ async function addNewStoryAndShow(evt) {
   });
 
   $newStory.hide();
+  $newStory.trigger("reset");
   putStoriesOnPage();
 }
 
 $newStory.on("submit", addNewStoryAndShow);
+
+/**iterate through user favorites stories list and append to the DOM */
+function showFavorites(){
+  console.log('123', currentUser.favorites);
+  $allFavoritesStoriesList.empty();
+  for (let story of currentUser.favorites) {
+    const $story = generateStoryMarkup(story);
+    $allFavoritesStoriesList.append($story);
+  }
+}

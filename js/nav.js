@@ -38,10 +38,21 @@ function updateNavOnLogin() {
 /**When a user clicks the submit link, show add new story form. */
 
 function navSubmitClick(evt) {
-  console.log("navSubmitClick", evt);
-  // hidePageComponents();
+  console.debug("navSubmitClick", evt);
+  hidePageComponents();
   $newStory.show();
-  // putStoriesOnPage();
+  putStoriesOnPage();
 }
 
 $navSubmit.on("click", navSubmitClick);
+
+/**When a user clicks the favorites link, show only the currentUser favorites stories */
+
+function navFavorites(evt){
+  console.debug("navFavoritesClick", evt);
+  hidePageComponents();
+  showFavorites();
+  $allFavoritesStoriesList.show();
+}
+
+$navFavorites.on("click", navFavorites);
