@@ -25,7 +25,9 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    const domain = new URL(this.url);
+    const hostName = domain.hostname; 
+    return hostName;
   }
 }
 
